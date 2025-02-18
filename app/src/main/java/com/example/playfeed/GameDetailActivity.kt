@@ -3,12 +3,12 @@ package com.example.playfeed
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.lifecycle.Observer
+import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import java.util.Date
@@ -18,11 +18,13 @@ class GameDetailActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var articleAdapter: ArticleAdapter
     private lateinit var rssViewModel: RssViewModel
-    private lateinit var followButton: Button
+    private lateinit var followButton: MaterialButton
 
+    // Firebase components
     private val firebaseAuth = FirebaseAuth.getInstance()
     private val database = FirebaseDatabase.getInstance().reference
     private val currentUser = firebaseAuth.currentUser
+    private var isFollowing = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +40,7 @@ class GameDetailActivity : AppCompatActivity() {
 
         // Initialize Follow Button
         followButton = findViewById(R.id.followButton)
-        setFollowButton(gameName)
+        setupFollowButton(gameName)
 
         // Initialize RecyclerView
         recyclerView = findViewById(R.id.recyclerView)
@@ -54,10 +56,30 @@ class GameDetailActivity : AppCompatActivity() {
 
         // Enable back button
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
 
-        // Follow button click listener
+    private fun setupFollowButton(gameName: String) {
+        checkFollowStatus(gameName) { isFollowed ->
+            isFollowing = isFollowed
+            updateFollowButton()
+        }
+
         followButton.setOnClickListener {
+            isFollowing = !isFollowing
             toggleFollowStatus(gameName)
+            updateFollowButton()
+        }
+    }
+
+    private fun updateFollowButton() {
+        if (isFollowing) {
+            followButton.text = "Following"
+            followButton.icon = getDrawable(R.drawable.following)
+            followButton.backgroundTintList = getColorStateList(R.color.secondary)
+        } else {
+            followButton.text = "Follow"
+            followButton.icon = getDrawable(R.drawable.follow)
+            followButton.backgroundTintList = getColorStateList(R.color.secondary)
         }
     }
 
@@ -72,21 +94,19 @@ class GameDetailActivity : AppCompatActivity() {
         rssViewModel.articles.observe(this, Observer { rssArticles ->
             rssArticles?.let {
                 allArticles.addAll(it)
-            }
-
-            // Sort all articles by date (newest first)
-            allArticles.sortByDescending { article ->
-                when (article) {
-                    is RssArticle -> article.getDate() ?: Date(0) // Default to epoch if null
-                    else -> Date(0) // Fallback case
+                // Sort articles by date (newest first)
+                allArticles.sortByDescending { article ->
+                    when (article) {
+                        is RssArticle -> article.getDate() ?: Date(0)
+                        else -> Date(0)
+                    }
                 }
+                articleAdapter.updateArticles(allArticles)
             }
-
-            // Update the adapter
-            articleAdapter.updateArticles(allArticles)
         })
     }
 
+    // Rest of your existing methods remain unchanged:
     private fun getRssUrls(gameName: String): List<String> {
         return when (gameName.lowercase()) {
             "cs:go", "cs2" -> listOf(
@@ -129,19 +149,7 @@ class GameDetailActivity : AppCompatActivity() {
                 "https://dotesports.com/reviews/feed",
                 "https://esportsinsider.com/features/insights/feed"
             )
-            else -> emptyList() // No source if no match
-        }
-    }
-
-
-    private fun setFollowButton(gameName: String) {
-        checkFollowStatus(gameName) { isFollowed ->
-            // Update button text based on follow status
-            if (isFollowed) {
-                followButton.text = "Unfollow"
-            } else {
-                followButton.text = "Follow"
-            }
+            else -> emptyList()
         }
     }
 
@@ -149,7 +157,7 @@ class GameDetailActivity : AppCompatActivity() {
         currentUser?.let { user ->
             val userRef = database.child("users").child(user.uid).child("followed_games")
             userRef.child(gameName).get().addOnSuccessListener { snapshot ->
-                callback(snapshot.exists()) // Return true if game is followed
+                callback(snapshot.exists())
             }
         }
     }
@@ -159,17 +167,16 @@ class GameDetailActivity : AppCompatActivity() {
             val userRef = database.child("users").child(user.uid).child("followed_games")
             userRef.child(gameName).get().addOnSuccessListener { snapshot ->
                 if (snapshot.exists()) {
-                    // Game is already followed, so unfollow it
-                    userRef.child(gameName).removeValue().addOnSuccessListener {
-                        followButton.text = "Follow" // Update button text to "Follow"
-                    }
+                    userRef.child(gameName).removeValue()
                 } else {
-                    // Game is not followed, so follow it
-                    userRef.child(gameName).setValue(true).addOnSuccessListener {
-                        followButton.text = "Unfollow" // Update button text to "Unfollow"
-                    }
+                    userRef.child(gameName).setValue(true)
                 }
             }
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

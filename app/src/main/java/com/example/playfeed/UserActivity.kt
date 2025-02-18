@@ -39,6 +39,7 @@ class UserActivity : AppCompatActivity() {
         userButton.setOnClickListener {
             navigateToActivity(UserActivity::class.java) // Replace Activity3 with your actual activity class
         }
+
     }
     private fun navigateToActivity(activityClass: Class<*>) {
         val intent = Intent(this, activityClass)

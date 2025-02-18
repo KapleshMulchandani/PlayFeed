@@ -1,18 +1,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background"
     android:id="@+id/main">
 
     <!-- Main content of the activity (Categories Grid) inside a ScrollView -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <!-- Scrollable content goes here -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <!-- Header Text -->
             <TextView
@@ -20,12 +24,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="24dp"
                 android:text="Select a Category"
-                android:textSize="30sp"
-                android:textColor="@android:color/black"
+                android:textSize="24sp"
+                android:textColor="@color/textPrimary"
                 android:gravity="center"
                 android:textStyle="bold"
-                android:fontFamily="sans-serif-medium" />
+                android:fontFamily="sans-serif-medium"
+                android:layout_gravity="center_horizontal"/>
 
             <!-- Grid of categories -->
             <GridLayout
@@ -33,183 +39,196 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:columnCount="2"
-                android:orientation="horizontal"
-                android:layout_below="@id/selectCategoryHeader"
-                android:padding="16dp"
-                android:rowCount="3">
+                android:rowCount="3"
+                android:alignmentMode="alignMargins"
+                android:columnOrderPreserved="false"
+                android:padding="8dp">
 
                 <!-- Category Tile 1 -->
-                <LinearLayout
+                <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_rowSpan="1"
-                    android:layout_columnSpan="1"
+                    android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingTop="20dp"
-                    android:clickable="true">
+                    android:layout_margin="8dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
 
-                    <ImageView
-                        android:id="@+id/category1Image"
-                        android:layout_width="150dp"
-                        android:layout_height="190dp"
-                        android:src="@drawable/cs2"
-                        android:text="CS2"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
 
+                        <ImageView
+                            android:id="@+id/category1Image"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:src="@drawable/cs2"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="CS2"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
-                </LinearLayout>
-
-                <!-- Category Tile 2 -->
-                <LinearLayout
+                <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_rowSpan="1"
-                    android:layout_columnSpan="1"
+                    android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingTop="20dp"
-                    android:clickable="true">
+                    android:layout_margin="8dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
 
-                    <ImageView
-                        android:id="@+id/category2Image"
-                        android:layout_width="150dp"
-                        android:layout_height="190dp"
-                        android:src="@drawable/valorant"
-                        android:text="Valorant"/>
-                </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
 
-                <!-- Category Tile 3 -->
-                <LinearLayout
+                        <ImageView
+                            android:id="@+id/category2Image"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:src="@drawable/valorant"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="Valorant"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_rowSpan="1"
-                    android:layout_columnSpan="1"
+                    android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingTop="20dp"
-                    android:clickable="true">
+                    android:layout_margin="8dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
 
-                    <ImageView
-                        android:id="@+id/category3Image"
-                        android:layout_width="150dp"
-                        android:layout_height="190dp"
-                        android:src="@drawable/lol"
-                        android:text="League Of Legends"/>
-                </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
 
-                <!-- Category Tile 4 -->
-                <LinearLayout
+                        <ImageView
+                            android:id="@+id/category3Image"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:src="@drawable/dota2"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="Dota2"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_rowSpan="1"
-                    android:layout_columnSpan="1"
+                    android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingTop="20dp"
-                    android:clickable="true">
+                    android:layout_margin="8dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
 
-                    <ImageView
-                        android:id="@+id/category4Image"
-                        android:layout_width="150dp"
-                        android:layout_height="190dp"
-                        android:src="@drawable/dota2"
-                        android:text="Dota2"/>
-                </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
 
-                <!-- Category Tile 5 -->
-                <LinearLayout
+                        <ImageView
+                            android:id="@+id/category4Image"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:src="@drawable/lol"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="League of Legends"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_rowSpan="1"
-                    android:layout_columnSpan="1"
+                    android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingTop="20dp"
-                    android:clickable="true">
+                    android:layout_margin="8dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
 
-                    <ImageView
-                        android:id="@+id/category5Image"
-                        android:layout_width="150dp"
-                        android:layout_height="190dp"
-                        android:src="@drawable/fortnite"
-                        android:text="Fortnite"/>
-                </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
 
-                <!-- Category Tile 6 -->
-                <LinearLayout
+                        <ImageView
+                            android:id="@+id/category5Image"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:src="@drawable/fortnite"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="Fortnite"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_rowSpan="1"
-                    android:layout_columnSpan="1"
+                    android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingTop="20dp"
-                    >
+                    android:layout_margin="8dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:clickable="false"
+                    android:focusable="false"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
 
-                    <ImageView
-                        android:id="@+id/category6Image"
-                        android:layout_width="150dp"
-                        android:layout_height="190dp"
-                        android:src="@drawable/comingsoon"/>
-                </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:id="@+id/category6Image"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:src="@drawable/comingsoon"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="More Coming Soon"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
             </GridLayout>
-
         </LinearLayout>
     </ScrollView>
 
-    <!-- Bottom Navigation remains fixed at the bottom -->
-    <androidx.appcompat.widget.Toolbar
+    <!-- Bottom Navigation -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/secondaryContainer"
-        android:elevation="10dp">
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:weightSum="3">
-
-            <!-- Home Button -->
-            <ImageButton
-                android:id="@+id/homeButton"
-                android:layout_width="32dp"
-                android:layout_height="64dp"
-                android:layout_weight="1"
-                android:background="?android:attr/selectableItemBackground"
-                android:contentDescription="Home"
-                android:src="@drawable/home" />
-
-            <!-- Search Button -->
-            <ImageButton
-                android:id="@+id/searchButton"
-                android:layout_width="32dp"
-                android:layout_height="64dp"
-                android:layout_weight="1"
-                android:src="@drawable/search"
-                android:contentDescription="Search"
-                android:background="?android:attr/selectableItemBackground" />
-
-            <!-- User Button -->
-            <ImageButton
-                android:id="@+id/userButton"
-                android:layout_width="32dp"
-                android:layout_height="64dp"
-                android:layout_weight="1"
-                android:src="@drawable/user"
-                android:contentDescription="User"
-                android:background="?android:attr/selectableItemBackground" />
-        </LinearLayout>
-    </androidx.appcompat.widget.Toolbar>
-
+        android:background="@color/surface"
+        app:menu="@menu/bottom_navigation_menu"
+        app:itemIconTint="@drawable/bottom_nav_icon_tint"
+        app:itemTextColor="@drawable/bottom_nav_text_tint"
+        app:labelVisibilityMode="labeled"
+        app:elevation="8dp"/>
 </RelativeLayout>

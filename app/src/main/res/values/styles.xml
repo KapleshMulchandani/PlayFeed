@@ -1,0 +1,46 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Define App Theme -->
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+
+
+        <!-- Primary Colors -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primaryVariant</item>
+        <item name="colorOnPrimary">@color/onPrimary</item>
+
+        <!-- Secondary Colors -->
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorSecondaryVariant">@color/secondaryVariant</item>
+        <item name="colorOnSecondary">@color/onSecondary</item>
+
+        <!-- Tertiary Colors -->
+
+        <item name="colorTertiary">@color/tertiary</item>
+
+        <item name="colorOnTertiary">@color/onTertiary</item>
+
+        <!-- Background & Surface Colors -->
+        <item name="android:colorBackground">@color/background</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/onSurface</item>
+
+        <!-- Status Bar Color -->
+        <item name="android:statusBarColor">@color/primaryVariant</item>
+
+        <!-- Text Colors -->
+        <item name="android:textColorPrimary">@color/textPrimary</item>
+        <item name="android:textColorSecondary">@color/textSecondary</item>
+
+        <!-- Error Colors -->
+        <item name="colorError">@color/error</item>
+        <item name="colorOnError">@color/onError</item>
+
+        <!-- Window Settings -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+
+    </style>
+
+
+</resources>

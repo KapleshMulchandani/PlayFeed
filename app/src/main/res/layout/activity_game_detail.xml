@@ -1,64 +1,90 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/background">
 
-    <!-- Top Section (Game Info) -->
-    <LinearLayout
+    <!-- Game Info Card -->
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.3"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:padding="16dp"
-        android:background="@color/cardview_dark_background">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@android:color/white">
 
-        <!-- Game Image -->
-        <ImageView
-            android:id="@+id/gameImage"
-            android:layout_width="150dp"
-            android:layout_height="200dp"
-            android:contentDescription="Game Image"
-            android:layout_marginEnd="16dp" />
-
-        <!-- Game Name and Follow Button -->
         <LinearLayout
-            android:layout_width="168dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp">
 
-            <!-- Game Name -->
-            <TextView
-                android:id="@+id/gameName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="Game Name"
-                android:textColor="@android:color/black"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+            <!-- Game Image -->
+            <ImageView
+                android:id="@+id/gameImage"
+                android:layout_width="120dp"
+                android:layout_height="160dp"
+                android:contentDescription="Game Image"
+                android:scaleType="centerCrop"
+                android:layout_marginEnd="16dp"
+                android:background="@color/secondaryVariant"/>
 
-            <!-- Follow Button -->
-            <Button
-                android:id="@+id/followButton"
-                android:layout_width="match_parent"
+            <!-- Game Name and Follow Button -->
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingStart="24dp"
-                android:paddingTop="12dp"
-                android:paddingEnd="24dp"
-                android:paddingBottom="12dp"
-                android:text="Follow"
-                android:textColor="@android:color/white" />
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center_vertical">
+
+                <!-- Game Name -->
+                <TextView
+                    android:id="@+id/gameName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Game Name"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="16dp"
+                    android:ellipsize="end"
+                    android:maxLines="2" />
+
+                <!-- Follow Button -->
+                <Button
+                    android:id="@+id/followButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="24dp"
+                    android:paddingTop="12dp"
+                    android:paddingEnd="24dp"
+                    android:paddingBottom="12dp"
+                    android:text="Follow"
+                    android:textColor="@android:color/white"
+                    android:backgroundTint="@color/secondary"/>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
-    <!-- Bottom Section (Articles) -->
+    <!-- Articles Section -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Latest Articles"
+        android:textColor="@color/textPrimary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- RecyclerView for Articles -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.7"/>
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp"
+        android:overScrollMode="never"/>
 </LinearLayout>

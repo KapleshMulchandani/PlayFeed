@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@color/primary"
-    android:theme="@style/Theme.AppCompat"> <!-- Using your primary green background -->
+    android:background="@color/background"
+    android:theme="@style/Theme.AppCompat">
 
     <!-- App Logo -->
     <ImageView
@@ -26,7 +27,7 @@
         android:layout_margin="16dp"
         app:cardCornerRadius="12dp"
         app:cardElevation="6dp"
-        android:background="@color/surface"> <!-- White background for contrast -->
+        android:background="@color/surface">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,7 +51,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email"
+                android:textColorHint="@color/primary"
                 android:inputType="textEmailAddress"
+                android:textColor="@color/primary"
                 android:padding="12dp"
                 android:background="@android:drawable/edit_text"
                 android:layout_marginBottom="12dp"/>
@@ -60,7 +63,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
+                android:textColorHint="@color/primary"
                 android:inputType="textPassword"
+                android:textColor="@color/primary"
                 android:padding="12dp"
                 android:background="@android:drawable/edit_text"
                 android:layout_marginBottom="16dp"/>
@@ -70,8 +75,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Login"
-                android:background="@color/primaryDark"
-                android:textColor="@android:color/white"
+                android:background="@color/primaryVariant"
+                android:textColor="@color/onPrimary"
                 android:padding="12dp"/>
 
             <!-- Sign Up Link -->

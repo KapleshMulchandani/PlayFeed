@@ -4,6 +4,13 @@
     android:id="@+id/main">
 
     <!-- Main content of the activity -->
+    <Button
+        android:id="@+id/switchThemeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Switch Theme"
+        android:layout_centerInParent="true" />
+
 
     <!-- Bottom Navigation -->
     <FrameLayout
@@ -16,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/secondaryContainer"
+        android:background="@@color/secondary"
         android:elevation="10dp">
 
         <LinearLayout
@@ -59,8 +66,5 @@
                 android:background="?android:attr/selectableItemBackground" />
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="User"/>
+
 </RelativeLayout>
