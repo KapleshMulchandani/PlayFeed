@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1048868836029",
+    "project_id": "playfeed-94808",
+    "storage_bucket": "playfeed-94808.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1048868836029:android:115d900ea17cee61cd5dd4",
+        "android_client_info": {
+          "package_name": "com.company.playfeed"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOGxArtNt0JrACSKzzKIG4IIk-Cvx2o0Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1048868836029:android:1cc04dc7ee6a408fcd5dd4",
+        "android_client_info": {
+          "package_name": "com.example.playfeed"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOGxArtNt0JrACSKzzKIG4IIk-Cvx2o0Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,202 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main">
+
+    <!-- Main content of the activity (Categories Grid) -->
+    <TextView
+        android:id="@+id/selectCategoryHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="Select a Category"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:textStyle="bold" />
+
+    <!-- Bottom Navigation -->
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:orientation="horizontal"
+        android:layout_below="@id/selectCategoryHeader"
+        android:padding="16dp"
+        android:rowCount="3">
+
+        <!-- Category Tile 1 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowSpan="1"
+            android:layout_columnSpan="1"
+            android:layout_columnWeight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            android:clickable="true">
+
+            <ImageView
+                android:id="@+id/category1Image"
+                android:layout_width="150dp"
+                android:layout_height="190dp"
+                android:src="@drawable/cs2"
+                android:text="CS2"/>
+
+
+        </LinearLayout>
+
+        <!-- Category Tile 2 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowSpan="1"
+            android:layout_columnSpan="1"
+            android:layout_columnWeight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            android:clickable="true">
+
+            <ImageView
+                android:id="@+id/category2Image"
+                android:layout_width="150dp"
+                android:layout_height="190dp"
+                android:src="@drawable/valorant"
+                android:text="Valorant"/>
+        </LinearLayout>
+
+        <!-- Category Tile 3 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowSpan="1"
+            android:layout_columnSpan="1"
+            android:layout_columnWeight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            android:clickable="true">
+
+            <ImageView
+                android:id="@+id/category3Image"
+                android:layout_width="150dp"
+                android:layout_height="190dp"
+                android:src="@drawable/lol"
+                android:text="League Of Legends"/>
+        </LinearLayout>
+
+        <!-- Category Tile 4 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowSpan="1"
+            android:layout_columnSpan="1"
+            android:layout_columnWeight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            android:clickable="true">
+
+            <ImageView
+                android:id="@+id/category4Image"
+                android:layout_width="150dp"
+                android:layout_height="190dp"
+                android:src="@drawable/dota2"
+                android:text="Dota2"/>
+        </LinearLayout>
+
+        <!-- Category Tile 5 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowSpan="1"
+            android:layout_columnSpan="1"
+            android:layout_columnWeight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            android:clickable="true">
+
+            <ImageView
+                android:id="@+id/category5Image"
+                android:layout_width="150dp"
+                android:layout_height="190dp"
+                android:src="@drawable/r6s"
+                android:text="Rainbow Six Seige"/>
+        </LinearLayout>
+
+        <!-- Category Tile 6 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowSpan="1"
+            android:layout_columnSpan="1"
+            android:layout_columnWeight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            >
+
+            <ImageView
+                android:id="@+id/category6Image"
+                android:layout_width="150dp"
+                android:layout_height="190dp"
+                android:src="@drawable/comingsoon"/>
+        </LinearLayout>
+
+    </GridLayout>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/secondaryContainer"
+        android:elevation="10dp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:weightSum="3">
+
+            <!-- Home Button -->
+            <ImageButton
+                android:id="@+id/homeButton"
+                android:layout_width="32dp"
+                android:layout_height="64dp"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:contentDescription="Home"
+                android:src="@drawable/home" />
+
+            <!-- Search Button -->
+            <ImageButton
+                android:id="@+id/searchButton"
+                android:layout_width="32dp"
+                android:layout_height="64dp"
+                android:layout_weight="1"
+                android:src="@drawable/search"
+                android:contentDescription="Search"
+                android:background="?android:attr/selectableItemBackground" />
+
+            <!-- User Button -->
+            <ImageButton
+                android:id="@+id/userButton"
+                android:layout_width="32dp"
+                android:layout_height="64dp"
+                android:layout_weight="1"
+                android:src="@drawable/user"
+                android:contentDescription="User"
+                android:background="?android:attr/selectableItemBackground" />
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+</RelativeLayout>

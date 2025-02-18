@@ -1,0 +1,25 @@
+<resources>
+    <!-- Primary Colors -->
+    <color name="primary">#FF6347</color>  <!-- Tomato Red (bright, energetic, modern) -->
+    <color name="primaryDark">#E53E32</color>  <!-- Slightly darker red for action elements -->
+    <color name="primaryContainer">#FF826B</color>  <!-- Lighter red (for backgrounds, cards) -->
+    <color name="onPrimary">#FFFFFF</color>  <!-- White Text on Primary Background -->
+
+    <!-- Secondary Colors -->
+    <color name="secondary">#1E90FF</color>  <!-- Dodger Blue (bright and fun) -->
+    <color name="secondaryContainer">#4A90E2</color>  <!-- Lighter blue for secondary buttons -->
+    <color name="onSecondary">#FFFFFF</color>  <!-- White Text on Secondary Background -->
+
+    <!-- Background & Surface -->
+    <color name="background">#F1F8FF</color>  <!-- Light blue background (soft and clean) -->
+    <color name="surface">#FFFFFF</color>  <!-- White surface color for cards, buttons, etc. -->
+
+    <!-- Text Colors -->
+    <color name="textPrimary">#333333</color>  <!-- Dark Grey Text for readability -->
+    <color name="textSecondary">#808080</color>  <!-- Medium Grey for secondary text -->
+
+    <!-- Other UI Colors -->
+    <color name="error">#E74C3C</color>  <!-- Red for Errors -->
+    <color name="success">#2ECC71</color>  <!-- Emerald Green for Success Messages -->
+    <color name="warning">#FFB84D</color>  <!-- Light Orange-Yellow for Warnings -->
+</resources>
