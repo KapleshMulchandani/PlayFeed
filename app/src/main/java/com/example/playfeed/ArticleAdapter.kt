@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.example.playfeed.R
 
-class ArticleAdapter(private var articles: List<RssArticle>) : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {
+class ArticleAdapter(private var articles: List<Article>) : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {
 
     // Update the list of articles
-    fun updateArticles(newArticles: List<RssArticle>) {
+    fun updateArticles(newArticles: List<Article>) {
         articles = newArticles
         notifyDataSetChanged()
     }
@@ -35,21 +35,29 @@ class ArticleAdapter(private var articles: List<RssArticle>) : RecyclerView.Adap
         private val articleImage: ImageView = itemView.findViewById(R.id.articleImage)
         private val articleTitle: TextView = itemView.findViewById(R.id.articleTitle)
 
-        fun bind(article: RssArticle) {
-            // Set article title
-            articleTitle.text = article.title
-
-            // Check if the image URL is valid, else use a fallback image
-            val imageUrl = article.mediaUrl
-            if (imageUrl.isNullOrEmpty()) {
-                Picasso.get().load(R.drawable.hltv).into(articleImage) // Fallback image
-            } else {
-                Picasso.get().load(imageUrl).into(articleImage)
+        fun bind(article: Article) {
+            when (article) {
+                is Article.RssArticle -> {
+                    // Bind RSS article
+                    articleTitle.text = article.title
+                    if (article.imageUrl.isNullOrEmpty()) {
+                        Picasso.get().load(R.drawable.hltv).into(articleImage) // Fallback image
+                    } else {
+                        Picasso.get().load(article.imageUrl).into(articleImage)
+                    }
+                }
+                is Article.SteamArticle -> {
+                    // Bind Steam article
+                    articleTitle.text = article.title
+                    Picasso.get().load(R.drawable.steam).into(articleImage) // Use steam image for Steam articles
+                }
             }
 
             // Set up click listener for the image and title
-            val url = article.link
-
+            val url = when (article) {
+                is Article.RssArticle -> article.link
+                is Article.SteamArticle -> article.url
+            }
             val context = itemView.context
             val openUrlIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
 
