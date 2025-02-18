@@ -24,9 +24,11 @@
             android:exported="false" />
         <activity
             android:name="com.example.playfeed.CategoriesActivity"
+            android:label="Games"
             android:exported="false" />
         <activity
             android:name="com.example.playfeed.HomeActivity"
+            android:label="Home"
             android:exported="false" />
         <activity
             android:name="com.example.playfeed.SignupActivity"
