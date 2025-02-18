@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import java.util.Date
@@ -24,7 +25,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var homeButton: ImageButton
     private lateinit var searchButton: ImageButton
     private lateinit var userButton: ImageButton
-
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private val firebaseAuth = FirebaseAuth.getInstance()
     private val database = FirebaseDatabase.getInstance().reference
     private val currentUser = firebaseAuth.currentUser
@@ -33,6 +34,12 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_home)
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout) // Initialize swipeRefreshLayout
+
+        swipeRefreshLayout.setOnRefreshListener {
+            // Trigger the data fetch when user pulls to refresh
+            fetchArticles()
+        }
 
         // Handle system bar insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -40,20 +47,21 @@ class HomeActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         homeButton = findViewById(R.id.homeButton)
         searchButton = findViewById(R.id.searchButton)
         userButton = findViewById(R.id.userButton)
 
         homeButton.setOnClickListener {
-            navigateToActivity(HomeActivity::class.java) // Replace Activity1 with your actual activity class
+            navigateToActivity(HomeActivity::class.java) // Navigate to HomeActivity
         }
 
         searchButton.setOnClickListener {
-            navigateToActivity(CategoriesActivity::class.java) // Replace Activity2 with your actual activity class
+            navigateToActivity(CategoriesActivity::class.java) // Navigate to CategoriesActivity
         }
 
         userButton.setOnClickListener {
-            navigateToActivity(UserActivity::class.java) // Replace Activity3 with your actual activity class
+            navigateToActivity(UserActivity::class.java) // Navigate to UserActivity
         }
 
         // Initialize RecyclerView
@@ -68,6 +76,7 @@ class HomeActivity : AppCompatActivity() {
         // Fetch articles (future-proof: supports all/followed games)
         fetchArticles()
     }
+
     private fun navigateToActivity(activityClass: Class<*>) {
         val intent = Intent(this, activityClass)
         startActivity(intent)
@@ -76,8 +85,6 @@ class HomeActivity : AppCompatActivity() {
     private fun fetchArticles() {
         val allArticles = mutableListOf<RssArticle>()
         val seenTitles = HashSet<String>() // Track unique article titles
-
-
 
         // Fetch followed games from Firebase
         currentUser?.uid?.let { uid ->
@@ -102,8 +109,11 @@ class HomeActivity : AppCompatActivity() {
                             rssViewModel.fetchRss(url)
                         }
 
+                        // Observe articles from ViewModel
                         rssViewModel.articles.observe(this, Observer { rssArticles ->
                             Log.d("HomeActivity", "Fetched Articles: ${rssArticles?.size}")
+
+                            // Add unique articles
                             rssArticles?.forEach { article ->
                                 if (article.title !in seenTitles) {  // Only add unique articles
                                     seenTitles.add(article.title)
@@ -118,48 +128,21 @@ class HomeActivity : AppCompatActivity() {
                             articleAdapter.updateArticles(allArticles)
 
                             Log.d("HomeActivity", "Final Articles: ${allArticles.size}")
+
+                            // Stop refreshing after loading the articles
+                            swipeRefreshLayout.isRefreshing = false
                         })
                     } else {
                         Log.d("HomeActivity", "No followed games found.")
+                        swipeRefreshLayout.isRefreshing = false  // Stop refreshing if no games found
                     }
                 }
                 .addOnFailureListener { exception ->
                     Log.e("HomeActivity", "Error fetching followed games", exception)
+                    swipeRefreshLayout.isRefreshing = false  // Stop refreshing on failure
                 }
         }
-
     }
-
-
-
-    private fun loadArticlesFromFeeds(feedUrls: List<String>) {
-        val allArticles = mutableListOf<Any>()
-
-        // Fetch articles from all URLs
-        for (url in feedUrls) {
-            rssViewModel.fetchRss(url)
-        }
-
-        // Observe articles once
-        rssViewModel.articles.observe(this, Observer { rssArticles ->
-            if (rssArticles != null) {
-                allArticles.clear() // Prevent old duplicates
-                allArticles.addAll(rssArticles)
-
-                // Sort all articles by date (newest first)
-                allArticles.sortByDescending { article ->
-                    when (article) {
-                        is RssArticle -> article.getDate() ?: Date(0)
-                        else -> Date(0)
-                    }
-                }
-
-                // Update adapter with unique articles
-                articleAdapter.updateArticles(allArticles.distinctBy { (it as? RssArticle)?.link })
-            }
-        })
-    }
-
 
     private fun getRssUrls(gameName: String): List<String> {
         return when (gameName.lowercase()) {

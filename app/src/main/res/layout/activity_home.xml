@@ -3,23 +3,30 @@
     android:layout_height="match_parent"
     android:id="@+id/main">
 
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <!-- SwipeRefreshLayout to support pull-to-refresh -->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="match_parent">
 
-        <!-- Followed Games RecyclerView -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/followedGamesRecyclerView"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"/>
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
 
+            <!-- Followed Games RecyclerView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/followedGamesRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"/>
+
+        </LinearLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/bottom_navigation"
