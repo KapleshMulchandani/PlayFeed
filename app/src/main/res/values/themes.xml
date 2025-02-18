@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+    <!-- Base application theme without action bar -->
     <style name="Theme.PlayFeed" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary</item>
@@ -27,5 +27,8 @@
         <item name="colorError">@color/error</item>
         <item name="colorOnError">@color/onPrimary</item>
 
+        <!-- Remove title bar, making sure there’s no action bar on the top -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 </resources>

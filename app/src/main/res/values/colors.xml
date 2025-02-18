@@ -1,7 +1,7 @@
 <resources>
     <!-- Primary Colors -->
-    <color name="primary">#FF6347</color>  <!-- Tomato Red (bright, energetic, modern) -->
-    <color name="primaryDark">#E53E32</color>  <!-- Slightly darker red for action elements -->
+    <color name="primary">#009688</color>  <!-- Tomato Red (bright, energetic, modern) -->
+    <color name="primaryDark">#8BC34A</color>  <!-- Slightly darker red for action elements -->
     <color name="primaryContainer">#FF826B</color>  <!-- Lighter red (for backgrounds, cards) -->
     <color name="onPrimary">#FFFFFF</color>  <!-- White Text on Primary Background -->
 

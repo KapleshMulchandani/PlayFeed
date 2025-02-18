@@ -15,7 +15,7 @@ import java.util.*
 
 class ArticleAdapter(private var articles: List<Any>) : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {
 
-    // Update the list of articles
+    // Update the list of articles and notify the adapter
     fun updateArticles(newArticles: List<Any>) {
         articles = newArticles
         notifyDataSetChanged()
@@ -36,70 +36,80 @@ class ArticleAdapter(private var articles: List<Any>) : RecyclerView.Adapter<Art
     inner class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val articleImage: ImageView = itemView.findViewById(R.id.articleImage)
         private val articleTitle: TextView = itemView.findViewById(R.id.articleTitle)
-        private val articleDate: TextView = itemView.findViewById(R.id.articleDate) // Add reference to date TextView
+        private val articleDate: TextView = itemView.findViewById(R.id.articleDate)
+        private val sourceText: TextView = itemView.findViewById(R.id.sourceText)
 
         fun bind(article: Any) {
             when (article) {
                 is RssArticle -> {
                     articleTitle.text = article.title
 
-                    // Debug: Log the link to check if it's from VLR, HLTV, or Dexerto
+                    // Debug: Log the article link
                     Log.d("ArticleLink", "Article link: ${article.link}")
 
+                    // Set image based on article link
                     when {
                         article.link.contains("vlr.gg") -> {
-                            Picasso.get().load(R.drawable.vlr).into(articleImage) // VLR image
+                            Picasso.get().load(R.drawable.vlr).into(articleImage)
                         }
-
                         article.link.contains("hltv.org") -> {
-                            Picasso.get().load(R.drawable.hltv).into(articleImage) // HLTV image
+                            Picasso.get().load(R.drawable.hltv).into(articleImage)
                         }
-
                         article.link.contains("counter-strike.net/news/updates") -> {
-                            Picasso.get().load(R.drawable.steam).into(articleImage) // Steam image
+                            Picasso.get().load(R.drawable.steam).into(articleImage)
                         }
-
                         else -> {
-                            // Log the image URL to verify if it is correct
+                            // Log the image URL
                             Log.d("ImageURL", "Image URL: ${article.imageUrl}")
-
-                            // Check if the imageUrl is valid before loading it
                             if (article.imageUrl.isNullOrEmpty()) {
-                                Picasso.get().load(R.drawable.cantfindimage)
-                                    .into(articleImage) // Fallback image
+                                Picasso.get().load(R.drawable.cantfindimage).into(articleImage)
                             } else {
-                                Picasso.get().load(article.imageUrl)
-                                    .into(articleImage) // Load image from URL
+                                Picasso.get().load(article.imageUrl).into(articleImage)
                             }
                         }
                     }
 
-                    // Format the publication date and set it to the TextView
-                    val dateFormat = SimpleDateFormat("dd/MM", Locale.getDefault()) // Customize the format as needed
-                    val date = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH).parse(article.pubDate) // Original date format
-                    val formattedDate = date?.let { dateFormat.format(it) }
-                    articleDate.text = formattedDate
+                    // Format publication date and set it to the TextView
+                    val outputFormat = SimpleDateFormat("dd/MM", Locale.getDefault())
+                    val inputFormat = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH)
+                    val date = try { inputFormat.parse(article.pubDate) } catch (e: Exception) { null }
+                    articleDate.text = date?.let { outputFormat.format(it) } ?: ""
+
+                    // Set the source text dynamically (based on the article's source)
+                    val source = when {
+                        article.link.contains("dexerto", ignoreCase = true) -> "Dexerto"
+                        article.link.contains("dotesports", ignoreCase = true) -> "Dot Esports"
+                        article.link.contains("oneesports", ignoreCase = true) -> "One Esports"
+                        article.link.contains("esportsinsider", ignoreCase = true) -> "Esports Insider"
+                        article.link.contains("github", ignoreCase = true) -> "Official"
+                        article.link.contains("hltv", ignoreCase = true) -> "HLTV"
+                        else -> "Other Source"
+                    }
+                    sourceText.text = source
+
+                    // Set click listener for the source text to open the article link
+                    sourceText.setOnClickListener {
+                        // Open the article's URL (same as title and image)
+                        val context = itemView.context
+                        val openSourceIntent = Intent(Intent.ACTION_VIEW, Uri.parse(article.link))
+                        context.startActivity(openSourceIntent)
+                    }
+                }
+                else -> {
+                    // Optionally handle other types if needed
+                    articleTitle.text = "Unknown article type"
                 }
             }
 
-            // Set up click listener for the image and title
+            // Click listener to open article link (same behavior for image and title)
             val url = when (article) {
                 is RssArticle -> article.link
                 else -> ""
             }
             val context = itemView.context
             val openUrlIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-
-            // Open the URL when the image is clicked
-            articleImage.setOnClickListener {
-                context.startActivity(openUrlIntent)
-            }
-
-            // Open the URL when the title is clicked
-            articleTitle.setOnClickListener {
-                context.startActivity(openUrlIntent)
-            }
+            articleImage.setOnClickListener { context.startActivity(openUrlIntent) }
+            articleTitle.setOnClickListener { context.startActivity(openUrlIntent) }
         }
     }
 }
-
