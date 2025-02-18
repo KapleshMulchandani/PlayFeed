@@ -1,56 +1,79 @@
 package com.example.playfeed
 
-import com.rometools.rome.io.SyndFeedInput
-import com.rometools.rome.io.XmlReader
-import org.jsoup.Jsoup
-import java.net.URL
+import org.xmlpull.v1.XmlPullParser
+import org.xmlpull.v1.XmlPullParserFactory
+import java.io.InputStream
+import java.text.SimpleDateFormat
+import java.util.*
+
 
 class RssParser {
-
-    fun parseRssFeed(rssFeed: String): List<RssArticle> {
+    fun parse(inputStream: InputStream): List<RssArticle> {
         val articles = mutableListOf<RssArticle>()
+        var title: String? = null
+        var link: String? = null
+        var pubDate: String? = null
+        var imageUrl: String? = null
+        var description: String? = null
 
-        // Parse the RSS feed string
-        val feed = SyndFeedInput().build(XmlReader(URL(rssFeed)))
+        val factory = XmlPullParserFactory.newInstance()
+        val parser = factory.newPullParser()
+        parser.setInput(inputStream, null)
 
-        // Iterate over each RSS entry
-        for (entry in feed.entries) {
-            val title = entry.title
-            val link = entry.link
-            val description = entry.description?.value
+        var eventType = parser.eventType
+        while (eventType != XmlPullParser.END_DOCUMENT) {
+            val tagName = parser.name
 
-            // Ensure we extract timestamp correctly as Long
-            val timestamp = entry.updatedDate?.time ?: System.currentTimeMillis() // Fallback to current time in milliseconds
+            when (eventType) {
+                XmlPullParser.START_TAG -> {
+                    when (tagName) {
+                        "title" -> title = parser.nextText()
+                        "link" -> link = parser.nextText()
+                        "pubDate" -> pubDate = parser.nextText()
+                        "description" -> description = parser.nextText()
+                        "content:encoded" -> description = parser.nextText()
+                        "media:thumbnail" -> {
+                            // Handle <media:thumbnail> for image URL
+                            imageUrl = parser.getAttributeValue(null, "url")
+                        }
 
-            val imageUrl = extractImage(description) // Extract the image URL from description if available
-            val mediaUrl = extractMediaUrl(description) // Extract the media URL if available
+                        "enclosure" -> {
+                            // Handle <enclosure> for image URL
+                            imageUrl = parser.getAttributeValue(null, "url")
+                        }
+                    }
+                }
 
-            // Create an RssArticle with the required fields including timestamp
-            val rssArticle = RssArticle(
-                title = title,
-                link = link,
-                imageUrl = imageUrl ?: "https://community.cloudflare.steamstatic.com/public/shared/images/responsive/header_logo.png", // Use fallback image if imageUrl is null
-                mediaUrl = mediaUrl,
-                timestamp = timestamp
-            )
+                XmlPullParser.END_TAG -> {
+                    if (tagName == "item" && title != null && link != null) {
+                        // Use the description content to extract image URL if not already found
+                        imageUrl = imageUrl ?: extractImageFromDescription(description)
 
-            articles.add(rssArticle)
+                        // Add article to the list
+                        articles.add(RssArticle(title, link, pubDate, imageUrl))
+
+                        // Reset variables for the next article
+                        title = null
+                        link = null
+                        pubDate = null
+                        imageUrl = null
+                        description = null
+                    }
+                }
+            }
+            eventType = parser.next()
         }
-
         return articles
     }
 
-    private fun extractImage(description: String?): String? {
+    // Function to extract image from description HTML
+    private fun extractImageFromDescription(description: String?): String? {
         return try {
-            Jsoup.parse(description).select("img").attr("src").takeIf { it.isNotEmpty() }
-        } catch (e: Exception) {
-            null
-        }
-    }
-
-    private fun extractMediaUrl(description: String?): String? {
-        return try {
-            Jsoup.parse(description).select("media\\:content").attr("url").takeIf { it.isNotEmpty() }
+            description?.let {
+                // Look for an <img> tag and return its 'src' attribute
+                val imgTagRegex = """<img [^>]*src=["']([^"']+)["']""".toRegex()
+                imgTagRegex.find(it)?.groups?.get(1)?.value
+            }
         } catch (e: Exception) {
             null
         }

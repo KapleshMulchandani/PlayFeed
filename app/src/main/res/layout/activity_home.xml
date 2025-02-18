@@ -3,14 +3,16 @@
     android:layout_height="match_parent"
     android:id="@+id/main">
 
-    <!-- Main content of the activity -->
+    <!-- RecyclerView for displaying game articles -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@id/bottom_navigation"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="8dp" /> <!-- Optional margin -->
 
     <!-- Bottom Navigation -->
-    <FrameLayout
-        android:id="@+id/mainContent"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
@@ -25,10 +27,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:weightSum="3">
-
-            <!-- Home Button -->
-
-            <!-- Search Button -->
 
             <ImageButton
                 android:id="@+id/homeButton"

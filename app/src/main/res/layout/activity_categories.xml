@@ -127,8 +127,8 @@
                 android:id="@+id/category5Image"
                 android:layout_width="150dp"
                 android:layout_height="190dp"
-                android:src="@drawable/r6s"
-                android:text="Rainbow Six Seige"/>
+                android:src="@drawable/fortnite"
+                android:text="Fortnite"/>
         </LinearLayout>
 
         <!-- Category Tile 6 -->

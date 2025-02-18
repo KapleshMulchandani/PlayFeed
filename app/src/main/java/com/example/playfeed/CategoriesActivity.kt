@@ -62,11 +62,11 @@ class CategoriesActivity : AppCompatActivity() {
         }
 
         findViewById<ImageView>(R.id.category5Image).setOnClickListener {
-            openGameDetails("Rainbow Six Siege", R.drawable.r6s)
+            openGameDetails("Fortnite", R.drawable.fortnite)
         }
 
         findViewById<ImageView>(R.id.category6Image).setOnClickListener {
-            openGameDetails("Coming Soon", R.drawable.comingsoon)
+            openGameDetails("Other", R.drawable.comingsoon)
         }
     }
 
