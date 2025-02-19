@@ -9,7 +9,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:paddingBottom="@dimen/bottom_nav_height">
 
         <!-- Scrollable content goes here -->
         <LinearLayout
@@ -65,7 +66,7 @@
                         android:padding="16dp">
 
                         <ImageView
-                            android:id="@+id/category1Image"
+                            android:id="@+id/Cs2Image"
                             android:layout_width="120dp"
                             android:layout_height="120dp"
                             android:src="@drawable/cs2"
@@ -94,7 +95,7 @@
                         android:padding="16dp">
 
                         <ImageView
-                            android:id="@+id/category2Image"
+                            android:id="@+id/ValorantImage"
                             android:layout_width="120dp"
                             android:layout_height="120dp"
                             android:src="@drawable/valorant"
@@ -122,7 +123,7 @@
                         android:padding="16dp">
 
                         <ImageView
-                            android:id="@+id/category3Image"
+                            android:id="@+id/Dota2Image"
                             android:layout_width="120dp"
                             android:layout_height="120dp"
                             android:src="@drawable/dota2"
@@ -150,7 +151,7 @@
                         android:padding="16dp">
 
                         <ImageView
-                            android:id="@+id/category4Image"
+                            android:id="@+id/LeagueImage"
                             android:layout_width="120dp"
                             android:layout_height="120dp"
                             android:src="@drawable/lol"
@@ -178,7 +179,7 @@
                         android:padding="16dp">
 
                         <ImageView
-                            android:id="@+id/category5Image"
+                            android:id="@+id/FortniteImage"
                             android:layout_width="120dp"
                             android:layout_height="120dp"
                             android:src="@drawable/fortnite"
@@ -186,6 +187,7 @@
                             android:contentDescription="Fortnite"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -193,8 +195,8 @@
                     android:layout_columnWeight="1"
                     android:layout_margin="8dp"
                     android:foreground="?attr/selectableItemBackground"
-                    android:clickable="false"
-                    android:focusable="false"
+                    android:clickable="true"
+                    android:focusable="true"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="4dp">
 
@@ -206,10 +208,207 @@
                         android:padding="16dp">
 
                         <ImageView
-                            android:id="@+id/category6Image"
+                            android:id="@+id/CodImage"
                             android:layout_width="120dp"
                             android:layout_height="120dp"
-                            android:src="@drawable/comingsoon"
+                            android:src="@drawable/cod"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="Call of Duty"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:id="@+id/RivalsImage"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:src="@drawable/rivals"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="Marvel Rivals"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:id="@+id/OverwatchImage"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:src="@drawable/ow"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="Overwatch"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:id="@+id/ApexImage"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:src="@drawable/apex"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="Apex Legends"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:id="@+id/RLImage"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:src="@drawable/rl"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="RocketLeague"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:id="@+id/R6SImage"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:src="@drawable/r6s"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="RainbowSixSiege"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:id="@+id/PokemonImage"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:src="@drawable/pokemon"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="Pokemon"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnSpan="2"
+                    android:layout_columnWeight="2"
+                    android:layout_margin="8dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:id="@+id/ComingSoonImage"
+                            android:layout_width="400dp"
+                            android:layout_height="120dp"
+                            android:src="@drawable/morecomingsoon"
                             android:scaleType="centerCrop"
                             android:contentDescription="More Coming Soon"/>
                     </LinearLayout>

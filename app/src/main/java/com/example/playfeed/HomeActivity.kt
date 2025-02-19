@@ -70,7 +70,7 @@ class HomeActivity : AppCompatActivity() {
                     true
                 }
                 R.id.userButton -> {
-                    navigateToActivity(UserActivity::class.java)
+                    navigateToActivity(ProfileActivity::class.java)
                     true
                 }
                 else -> false

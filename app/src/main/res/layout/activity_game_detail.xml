@@ -25,7 +25,7 @@
             <ImageView
                 android:id="@+id/gameImage"
                 android:layout_width="120dp"
-                android:layout_height="160dp"
+                android:layout_height="120dp"
                 android:contentDescription="Game Image"
                 android:scaleType="centerCrop"
                 android:layout_marginEnd="16dp"

@@ -1,10 +1,14 @@
 package com.example.playfeed
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -21,9 +25,10 @@ class FollowingFragment : Fragment() {
     private lateinit var articleAdapter: ArticleAdapter
     private lateinit var rssViewModel: RssViewModel
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var emptyState: LinearLayout
+    private lateinit var exploreButton: Button
 
-    private var followedGames: List<String> = listOf() // This will be populated from Firebase
-
+    private var followedGames: List<String> = emptyList()
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private val firebaseDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
 
@@ -33,92 +38,102 @@ class FollowingFragment : Fragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_following, container, false)
 
-        // Initialize SwipeRefreshLayout
+        // Initialize views
         swipeRefreshLayout = rootView.findViewById(R.id.swipeRefreshLayout)
-
-        // Set up the pull-to-refresh functionality
-        swipeRefreshLayout.setOnRefreshListener {
-            fetchArticles() // Trigger data fetch when user pulls to refresh
-        }
-
-        // Initialize RecyclerView and Adapter
         recyclerView = rootView.findViewById(R.id.articleRecyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        articleAdapter = ArticleAdapter(emptyList()) // Start with an empty list
-        recyclerView.adapter = articleAdapter
-
-        // Initialize ViewModel
-        rssViewModel = ViewModelProvider(this).get(RssViewModel::class.java)
-
-        // Fetch the user's followed games from Firebase
-        fetchFollowedGames()
+        emptyState = rootView.findViewById(R.id.emptyState)
+        exploreButton = rootView.findViewById(R.id.exploreGamesButton)
 
         return rootView
     }
 
-    private fun fetchFollowedGames() {
-        val currentUserId = firebaseAuth.currentUser?.uid
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        if (currentUserId != null) {
-            // Get the followed games from Firebase
-            val userRef = firebaseDatabase.getReference("users").child(currentUserId).child("followed_games")
-            userRef.get().addOnSuccessListener { snapshot ->
-                if (snapshot.exists()) {
-                    // Get followed games keys as a list of game names (which are the keys)
-                    followedGames = snapshot.children.mapNotNull { it.key }
-                    Log.d("FollowingFragment", "Followed Games: $followedGames")
+        // Setup RecyclerView
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        articleAdapter = ArticleAdapter(emptyList())
+        recyclerView.adapter = articleAdapter
 
-                    // Once we have the followed games, fetch the articles
-                    fetchArticles()
-                } else {
-                    Log.d("FollowingFragment", "No followed games found for user.")
-                }
-            }.addOnFailureListener { exception ->
-                Log.e("FollowingFragment", "Error fetching followed games: ", exception)
-            }
-        } else {
-            Log.d("FollowingFragment", "User is not logged in.")
+        // Setup ViewModel
+        rssViewModel = ViewModelProvider(this).get(RssViewModel::class.java)
+
+        // Setup swipe refresh
+        swipeRefreshLayout.setOnRefreshListener {
+            fetchFollowedGames()
         }
+
+        // Setup explore button
+        exploreButton.setOnClickListener {
+            startActivity(Intent(requireContext(), CategoriesActivity::class.java))
+        }
+
+        // Initial load
+        fetchFollowedGames()
+    }
+
+    private fun fetchFollowedGames() {
+        val currentUserId = firebaseAuth.currentUser?.uid ?: run {
+            showEmptyState()
+            return
+        }
+
+        firebaseDatabase.getReference("users").child(currentUserId).child("followed_games")
+            .get().addOnSuccessListener { snapshot ->
+                followedGames = snapshot.children.mapNotNull { it.key }
+
+                if (followedGames.isEmpty()) {
+                    showEmptyState()
+                } else {
+                    hideEmptyState()
+                    fetchArticles()
+                }
+            }.addOnFailureListener {
+                showEmptyState()
+            }
     }
 
     private fun fetchArticles() {
         val allArticles = mutableListOf<RssArticle>()
-        val seenTitles = HashSet<String>() // To keep track of unique article titles
+        val seenTitles = HashSet<String>()
 
-        // Fetch feeds for each followed game
         followedGames.forEach { gameName ->
-            val gameRssUrls = getRssUrls(gameName)
-            gameRssUrls.forEach { url ->
+            getRssUrls(gameName).forEach { url ->
                 rssViewModel.fetchRss(url)
             }
         }
 
-        // Observe articles from the ViewModel
-        rssViewModel.articles.observe(viewLifecycleOwner, Observer { rssArticles ->
-            Log.d("FollowingFragment", "Fetched Articles: ${rssArticles?.size}")
+        rssViewModel.articles.observe(viewLifecycleOwner) { rssArticles ->
+            swipeRefreshLayout.isRefreshing = false
 
             rssArticles?.forEach { article ->
-                // Add only unique articles based on the title
                 if (article.title !in seenTitles) {
                     seenTitles.add(article.title)
                     allArticles.add(article)
                 }
             }
 
-            // Sort articles by date (newest first)
             allArticles.sortByDescending { it.getDate() ?: Date(0) }
-
-            // Update the adapter with the fetched articles
             articleAdapter.updateArticles(allArticles)
 
-            Log.d("FollowingFragment", "Final Articles: ${allArticles.size}")
-
-            // Stop refreshing once articles are fetched
-            swipeRefreshLayout.isRefreshing = false
-        })
+            // Show empty state if no articles found
+            if (allArticles.isEmpty()) {
+                showEmptyState("No articles found for followed games")
+            }
+        }
     }
 
-    // Function to return RSS URLs based on the followed game name
+    private fun showEmptyState(message: String = "Follow games to see their news!") {
+        emptyState.visibility = View.VISIBLE
+        recyclerView.visibility = View.GONE
+        emptyState.findViewById<TextView>(R.id.emptyStateText).text = message
+    }
+
+    private fun hideEmptyState() {
+        emptyState.visibility = View.GONE
+        recyclerView.visibility = View.VISIBLE
+    }
+
     private fun getRssUrls(gameName: String): List<String> {
         return when (gameName.lowercase()) {
             "cs:go", "cs2" -> listOf(
@@ -156,7 +171,39 @@ class FollowingFragment : Fragment() {
                 "https://www.oneesports.gg/fortnite/feed/",
                 "https://esportsinsider.com/esports-titles/battle-royale/fortnite/feed"
             )
-            else -> emptyList() // No source if no match
+            "Call Of Duty" -> listOf(
+                "https://www.dexerto.com/feed/category/call-of-duty/",
+                "https://www.oneesports.gg/call-of-duty/feed/",
+                "https://esportsinsider.com/esports-titles/shooters/call-of-duty/feed",
+                "https://dotesports.com/call-of-duty/feed"
+            )
+            "Marvel Rivals" -> listOf(
+                "https://dotesports.com/dota-2/feed",
+                "https://www.oneesports.gg/dota2/feed/",
+                "https://esportsinsider.com/esports-titles/moba/dota-2/feed"
+            )
+            "Overwatch" -> listOf(
+                "https://dotesports.com/dota-2/feed",
+                "https://www.oneesports.gg/dota2/feed/",
+                "https://esportsinsider.com/esports-titles/moba/dota-2/feed"
+            )
+            "Apex Legends" -> listOf(
+                "https://dotesports.com/dota-2/feed",
+                "https://www.oneesports.gg/dota2/feed/",
+                "https://esportsinsider.com/esports-titles/moba/dota-2/feed"
+            )
+            "Rocket League" -> listOf(
+                "https://dotesports.com/dota-2/feed",
+                "https://www.oneesports.gg/dota2/feed/",
+                "https://esportsinsider.com/esports-titles/moba/dota-2/feed"
+            )
+
+            "other" -> listOf(
+                "https://www.oneesports.gg/gaming/feed/",
+                "https://dotesports.com/reviews/feed",
+                "https://esportsinsider.com/features/insights/feed"
+            )
+            else -> emptyList()
         }
     }
 }

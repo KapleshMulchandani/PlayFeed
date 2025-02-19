@@ -22,7 +22,7 @@
             android:name="com.example.playfeed.GameDetailActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.playfeed.UserActivity"
+            android:name="com.example.playfeed.ProfileActivity"
             android:exported="false" />
         <activity
             android:name="com.example.playfeed.CategoriesActivity"

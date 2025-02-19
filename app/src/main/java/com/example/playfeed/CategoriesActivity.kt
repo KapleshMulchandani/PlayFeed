@@ -44,7 +44,7 @@ class CategoriesActivity : AppCompatActivity() {
                     true
                 }
                 R.id.userButton -> {
-                    navigateToActivity(UserActivity::class.java)
+                    navigateToActivity(ProfileActivity::class.java)
                     true
                 }
                 else -> false
@@ -61,11 +61,18 @@ class CategoriesActivity : AppCompatActivity() {
     private fun setupCategoryClickListeners() {
         // Map of category IDs to game names and images
         val categories = mapOf(
-            R.id.category1Image to Pair("CS2", R.drawable.cs2),
-            R.id.category2Image to Pair("Valorant", R.drawable.valorant),
-            R.id.category4Image to Pair("League of Legends", R.drawable.lol),
-            R.id.category3Image to Pair("Dota 2", R.drawable.dota2),
-            R.id.category5Image to Pair("Fortnite", R.drawable.fortnite)
+            R.id.Cs2Image to Pair("Counter Strike 2", R.drawable.cs2),
+            R.id.ValorantImage to Pair("Valorant", R.drawable.valorant),
+            R.id.LeagueImage to Pair("League of Legends", R.drawable.lol),
+            R.id.Dota2Image to Pair("Dota 2", R.drawable.dota2),
+            R.id.FortniteImage to Pair("Fortnite", R.drawable.fortnite),
+            R.id.CodImage to Pair("Call Of Duty", R.drawable.cod),
+            R.id.RivalsImage to Pair("Marvel Rivals", R.drawable.rivals),
+            R.id.OverwatchImage to Pair("Overwatch", R.drawable.ow),
+            R.id.ApexImage to Pair("Apex Legends", R.drawable.apex),
+            R.id.RLImage to Pair("Rocket League", R.drawable.rl),
+            R.id.R6SImage to Pair("Rainbow Six Siege", R.drawable.r6s),
+            R.id.PokemonImage to Pair("Pokemon", R.drawable.pokemon)
         )
 
         // Set click listeners for each category
