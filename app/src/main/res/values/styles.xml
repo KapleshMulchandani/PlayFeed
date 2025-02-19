@@ -1,5 +1,4 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Define App Theme -->
     <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
 
 
@@ -16,7 +15,6 @@
         <!-- Tertiary Colors -->
 
         <item name="colorTertiary">@color/tertiary</item>
-
         <item name="colorOnTertiary">@color/onTertiary</item>
 
         <!-- Background & Surface Colors -->
@@ -38,7 +36,6 @@
         <!-- Window Settings -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-
 
     </style>
 

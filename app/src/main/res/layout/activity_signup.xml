@@ -7,9 +7,9 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:background="@color/background"
-    android:theme="@style/Theme.AppCompat"> <!-- Using your background color -->
+    android:theme="@style/Theme.AppCompat">
 
-    <!-- App Logo -->
+
     <ImageView
         android:id="@+id/imgLogo"
         android:layout_width="200dp"
@@ -18,7 +18,7 @@
         android:scaleType="fitCenter"
         android:src="@drawable/logo" />
 
-    <!-- CardView for Sign-Up Form -->
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
         android:layout_margin="16dp"
         app:cardCornerRadius="12dp"
         app:cardElevation="6dp"
-        android:background="@color/surface"> <!-- Using surface color for contrast -->
+        android:background="@color/surface">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -102,7 +102,7 @@
                 android:textColor="@color/onPrimary"
                 android:padding="12dp"/>
 
-            <!-- Login Link -->
+
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

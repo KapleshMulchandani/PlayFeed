@@ -208,5 +208,5 @@ class GameDetailActivity : AppCompatActivity() {
             }
         }
     }
-    
+
 }

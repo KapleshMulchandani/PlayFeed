@@ -10,7 +10,7 @@
     android:background="@color/background"
     android:theme="@style/Theme.AppCompat">
 
-    <!-- App Logo -->
+
     <ImageView
         android:id="@+id/imgLogo"
         android:layout_width="200dp"
@@ -19,7 +19,7 @@
         android:scaleType="fitCenter"
         android:src="@drawable/logo" />
 
-    <!-- CardView for Login Form -->
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
                 android:clickable="true"
                 android:focusable="true"/>
 
-            <!-- Sign Up Link -->
+
             <TextView
                 android:id="@+id/signUpText"
                 android:layout_width="wrap_content"

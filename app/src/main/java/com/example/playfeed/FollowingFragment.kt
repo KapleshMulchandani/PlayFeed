@@ -136,7 +136,7 @@ class FollowingFragment : Fragment() {
 
     private fun getRssUrls(gameName: String): List<String> {
         return when (gameName.lowercase()) {
-            "cs:go", "cs2" -> listOf(
+            "counter strike 2", "cs2" -> listOf(
                 "https://www.dexerto.com/feed/category/counter-strike-2/",
                 "https://dotesports.com/counter-strike/feed",
                 "https://www.oneesports.gg/counter-strike-2/feed/",
@@ -171,32 +171,39 @@ class FollowingFragment : Fragment() {
                 "https://www.oneesports.gg/fortnite/feed/",
                 "https://esportsinsider.com/esports-titles/battle-royale/fortnite/feed"
             )
-            "Call Of Duty" -> listOf(
+            "call of duty" -> listOf(
                 "https://www.dexerto.com/feed/category/call-of-duty/",
-                "https://www.oneesports.gg/call-of-duty/feed/",
-                "https://esportsinsider.com/esports-titles/shooters/call-of-duty/feed",
+                "https://esportsinsider.com/esports-titles/shooters/marvel-rivals/feed",
                 "https://dotesports.com/call-of-duty/feed"
             )
-            "Marvel Rivals" -> listOf(
-                "https://dotesports.com/dota-2/feed",
-                "https://www.oneesports.gg/dota2/feed/",
-                "https://esportsinsider.com/esports-titles/moba/dota-2/feed"
+            "marvel rivals" -> listOf(
+                "https://www.dexerto.com/feed/category/marvel-rivals/",
             )
-            "Overwatch" -> listOf(
-                "https://dotesports.com/dota-2/feed",
-                "https://www.oneesports.gg/dota2/feed/",
-                "https://esportsinsider.com/esports-titles/moba/dota-2/feed"
+            "overwatch" -> listOf(
+                "https://www.dexerto.com/feed/category/overwatch/",
+                "https://dotesports.com/overwatch/feed",
+                "https://esportsinsider.com/esports-titles/shooters/overwatch/feed"
             )
-            "Apex Legends" -> listOf(
-                "https://dotesports.com/dota-2/feed",
-                "https://www.oneesports.gg/dota2/feed/",
-                "https://esportsinsider.com/esports-titles/moba/dota-2/feed"
+            "apex legends" -> listOf(
+                "https://www.dexerto.com/feed/category/apex-legends/",
+                "https://dotesports.com/apex-legends/feed",
+                "https://www.oneesports.gg/apex-legends/feed/",
+                "https://esportsinsider.com/esports-titles/battle-royale/apex-legends/feed"
             )
-            "Rocket League" -> listOf(
-                "https://dotesports.com/dota-2/feed",
-                "https://www.oneesports.gg/dota2/feed/",
-                "https://esportsinsider.com/esports-titles/moba/dota-2/feed"
+            "rocket league" -> listOf(
+                "https://www.dexerto.com/feed/category/rocket-league/",
+                "https://dotesports.com/rocket-league/feed",
+                "https://esportsinsider.com/esports-titles/sports-simulation/rocket-league/feed"
             )
+            "rainbow six siege" -> listOf(
+                "https://esportsinsider.com/esports-titles/shooters/rainbow-six-siege/feed"
+            )
+            "pokemon" -> listOf(
+                "https://www.dexerto.com/feed/category/pokemon/",
+                "https://dotesports.com/pokemon/feed",
+                "https://esportsinsider.com/esports-titles/sports-simulation/pokemon/feed"
+            )
+
 
             "other" -> listOf(
                 "https://www.oneesports.gg/gaming/feed/",

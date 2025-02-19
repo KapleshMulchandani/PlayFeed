@@ -6,7 +6,7 @@
     android:padding="16dp"
     android:background="@color/background">
 
-    <!-- Game Info Card -->
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,7 +21,7 @@
             android:orientation="horizontal"
             android:padding="16dp">
 
-            <!-- Game Image -->
+
             <ImageView
                 android:id="@+id/gameImage"
                 android:layout_width="120dp"
@@ -31,7 +31,7 @@
                 android:layout_marginEnd="16dp"
                 android:background="@color/secondaryVariant"/>
 
-            <!-- Game Name and Follow Button -->
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
                 android:orientation="vertical"
                 android:gravity="center_vertical">
 
-                <!-- Game Name -->
+
                 <TextView
                     android:id="@+id/gameName"
                     android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                     android:ellipsize="end"
                     android:maxLines="2" />
 
-                <!-- Follow Button -->
+
                 <Button
                     android:id="@+id/followButton"
                     android:layout_width="match_parent"
@@ -68,7 +68,7 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- Articles Section -->
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
         android:textStyle="bold"
         android:layout_marginBottom="8dp"/>
 
-    <!-- RecyclerView for Articles -->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"

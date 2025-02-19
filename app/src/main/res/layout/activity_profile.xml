@@ -17,7 +17,7 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Account Settings Card -->
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <!-- User Info Section -->
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
                         android:layout_marginTop="4dp"/>
                 </LinearLayout>
 
-                <!-- Password Change Section -->
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Followed Games Card -->
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <!-- Followed Games Title -->
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -120,7 +120,7 @@
                     android:textColor="@color/textPrimary"
                     android:layout_marginBottom="8dp"/>
 
-                <!-- Followed Games List -->
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/followedGamesRecyclerView"
                     android:layout_width="match_parent"
@@ -129,7 +129,7 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Delete Account Button -->
+
         <Button
             android:id="@+id/deleteAccountButton"
             android:layout_width="match_parent"
@@ -139,7 +139,7 @@
             android:textColor="@color/onError"
             android:layout_marginTop="8dp"/>
 
-        <!-- Sign Out Button -->
+
         <Button
             android:id="@+id/signOutButton"
             android:layout_width="match_parent"
@@ -157,8 +157,8 @@
         android:layout_height="wrap_content"
         android:background="@color/surface"
         app:elevation="8dp"
-        app:itemIconTint="@drawable/bottom_nav_icon_tint"
-        app:itemTextColor="@drawable/bottom_nav_text_tint"
+        app:itemIconTint="@color/bottom_nav_icon_tint"
+        app:itemTextColor="@color/bottom_nav_text_tint"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_navigation_menu" />

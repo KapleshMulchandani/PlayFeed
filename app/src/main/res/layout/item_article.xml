@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Article Image with rounded corners -->
+
         <ImageView
             android:id="@+id/articleImage"
             android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             android:clipToOutline="true"
             android:outlineProvider="background" />
 
-        <!-- Article Title with bold text and improved size -->
+
         <TextView
             android:id="@+id/articleTitle"
             android:layout_width="match_parent"
@@ -37,7 +37,7 @@
             android:ellipsize="end"
             android:maxLines="2" />
 
-        <!-- Article Date with slightly smaller text size -->
+
         <TextView
             android:id="@+id/articleDate"
             android:layout_width="wrap_content"
@@ -51,7 +51,7 @@
             android:ellipsize="end"
             android:maxLines="1" />
 
-        <!-- Source Text (Dexerto.com) placed to the right of the date -->
+
         <TextView
             android:id="@+id/sourceText"
             android:layout_width="wrap_content"
