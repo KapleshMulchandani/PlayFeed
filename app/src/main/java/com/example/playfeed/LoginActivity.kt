@@ -23,10 +23,10 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login) // Link to your login XML layout
 
-        // Initialize Firebase Auth
+
         auth = FirebaseAuth.getInstance()
 
-        // Find views
+
         emailEditText = findViewById(R.id.emailEditText)
         passwordEditText = findViewById(R.id.passwordEditText)
         loginButton = findViewById(R.id.btnLogin)
@@ -36,12 +36,12 @@ class LoginActivity : AppCompatActivity() {
         forgotPasswordText.setOnClickListener {
             showForgotPasswordDialog()
         }
-        // Check if user is already logged in
+
         if (auth.currentUser != null) {
             navigateToMainActivity()
         }
 
-        // Login button click
+
         loginButton.setOnClickListener {
             val email = emailEditText.text.toString().trim()
             val password = passwordEditText.text.toString().trim()
@@ -53,7 +53,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        // Navigate to SignupActivity
+
         signUpText.setOnClickListener {
             startActivity(Intent(this, SignupActivity::class.java))
         }

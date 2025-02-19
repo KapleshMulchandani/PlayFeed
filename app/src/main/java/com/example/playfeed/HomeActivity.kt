@@ -23,11 +23,11 @@ class HomeActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_home)
 
-        // Initialize ViewPager and TabLayout
+
         viewPager = findViewById(R.id.viewPager)
         tabLayout = findViewById(R.id.tabLayout)
 
-        // Set up ViewPager adapter
+
         viewPager.adapter = object : FragmentStateAdapter(this) {
             override fun getItemCount(): Int = 2
             override fun createFragment(position: Int): Fragment {
@@ -39,7 +39,7 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        // Attach TabLayoutMediator
+
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = when (position) {
                 0 -> "Following"
@@ -48,21 +48,20 @@ class HomeActivity : AppCompatActivity() {
             }
         }.attach()
 
-        // Set up edge-to-edge insets
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // Initialize BottomNavigationView
+
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNavigation.selectedItemId = R.id.homeButton // Highlight current tab
 
         bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.homeButton -> {
-                    // Already on HomeActivity
                     true
                 }
                 R.id.searchButton -> {

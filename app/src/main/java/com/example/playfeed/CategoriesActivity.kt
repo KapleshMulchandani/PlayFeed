@@ -11,7 +11,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class CategoriesActivity : AppCompatActivity() {
 
-    // Constants for intent extras
+
     companion object {
         const val EXTRA_GAME_NAME = "GAME_NAME"
         const val EXTRA_GAME_IMAGE = "GAME_IMAGE"
@@ -22,17 +22,17 @@ class CategoriesActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_categories)
 
-        // Handle edge-to-edge insets
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // Initialize BottomNavigationView
+
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
-        // Set up navigation item selection listener
+
         bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.homeButton -> {
@@ -40,7 +40,6 @@ class CategoriesActivity : AppCompatActivity() {
                     true
                 }
                 R.id.searchButton -> {
-                    // Already in CategoriesActivity, no need to navigate
                     true
                 }
                 R.id.userButton -> {
@@ -51,15 +50,15 @@ class CategoriesActivity : AppCompatActivity() {
             }
         }
 
-        // Set the default selected item (optional)
+
         bottomNavigationView.selectedItemId = R.id.searchButton
 
-        // Initialize category click listeners
+
         setupCategoryClickListeners()
     }
 
     private fun setupCategoryClickListeners() {
-        // Map of category IDs to game names and images
+
         val categories = mapOf(
             R.id.Cs2Image to Pair("Counter Strike 2", R.drawable.cs2),
             R.id.ValorantImage to Pair("Valorant", R.drawable.valorant),
@@ -75,7 +74,7 @@ class CategoriesActivity : AppCompatActivity() {
             R.id.PokemonImage to Pair("Pokemon", R.drawable.pokemon)
         )
 
-        // Set click listeners for each category
+
         categories.forEach { (id, gameData) ->
             findViewById<ImageView>(id).setOnClickListener {
                 openGameDetails(gameData.first, gameData.second)

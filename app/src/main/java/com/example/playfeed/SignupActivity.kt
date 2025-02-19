@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.playfeed.databinding.ActivitySignupBinding
-
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -18,7 +17,7 @@ class SignupActivity : AppCompatActivity() {
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        auth = FirebaseAuth.getInstance() // Initialize Firebase Auth
+        auth = FirebaseAuth.getInstance()
 
         binding.btnSignUp.setOnClickListener {
             val email = binding.emailEditText.text.toString().trim()

@@ -29,17 +29,17 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
-        // Initialize Firebase
+
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance().reference
 
-        // Setup UI components
+
         setupUserInfo()
         setupFollowedGames()
         setupButtonListeners()
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
-        // Set up navigation item selection listener
+
         bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.homeButton -> {
@@ -51,14 +51,12 @@ class ProfileActivity : AppCompatActivity() {
                     true
                 }
                 R.id.userButton -> {
-
                     true
                 }
                 else -> false
             }
         }
 
-        // Set the default selected item (optional)
         bottomNavigationView.selectedItemId = R.id.userButton
     }
 
@@ -189,7 +187,7 @@ class ProfileActivity : AppCompatActivity() {
         val intent = Intent(this, activityClass)
         startActivity(intent)
     }
-    // RecyclerView Adapter
+
     class FollowedGamesAdapter(
         private var games: List<String>,
         private val onUnfollow: (String) -> Unit

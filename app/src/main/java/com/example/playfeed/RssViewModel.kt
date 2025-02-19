@@ -29,7 +29,7 @@ class RssViewModel : ViewModel() {
                 _articles.postValue(fetchedArticles)
             } catch (e: Exception) {
                 e.printStackTrace()
-                // In case of an error, post an empty list to the LiveData
+
                 _articles.postValue(emptyList())
             }
         }

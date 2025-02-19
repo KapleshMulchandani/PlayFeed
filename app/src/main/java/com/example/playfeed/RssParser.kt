@@ -3,8 +3,7 @@ package com.example.playfeed
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserFactory
 import java.io.InputStream
-import java.text.SimpleDateFormat
-import java.util.*
+
 
 
 class RssParser {
@@ -33,12 +32,12 @@ class RssParser {
                         "description" -> description = parser.nextText()
                         "content:encoded" -> description = parser.nextText()
                         "media:thumbnail" -> {
-                            // Handle <media:thumbnail> for image URL
+
                             imageUrl = parser.getAttributeValue(null, "url")
                         }
 
                         "enclosure" -> {
-                            // Handle <enclosure> for image URL
+
                             imageUrl = parser.getAttributeValue(null, "url")
                         }
                     }
@@ -46,13 +45,13 @@ class RssParser {
 
                 XmlPullParser.END_TAG -> {
                     if (tagName == "item" && title != null && link != null) {
-                        // Use the description content to extract image URL if not already found
+
                         imageUrl = imageUrl ?: extractImageFromDescription(description)
 
-                        // Add article to the list
+
                         articles.add(RssArticle(title, link, pubDate, imageUrl))
 
-                        // Reset variables for the next article
+
                         title = null
                         link = null
                         pubDate = null
@@ -66,11 +65,11 @@ class RssParser {
         return articles
     }
 
-    // Function to extract image from description HTML
+
     private fun extractImageFromDescription(description: String?): String? {
         return try {
             description?.let {
-                // Look for an <img> tag and return its 'src' attribute
+
                 val imgTagRegex = """<img [^>]*src=["']([^"']+)["']""".toRegex()
                 imgTagRegex.find(it)?.groups?.get(1)?.value
             }

@@ -6,10 +6,10 @@ import java.util.*
 data class RssArticle(
     val title: String,
     val link: String,
-    val pubDate: String?, // Keep it as String
+    val pubDate: String?,
     val imageUrl: String?
 ) {
-    // Convert the pubDate string to Date object
+
     fun getDate(): Date? {
         return try {
             pubDate?.let {

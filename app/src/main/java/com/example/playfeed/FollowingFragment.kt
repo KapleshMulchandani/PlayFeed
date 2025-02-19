@@ -2,7 +2,6 @@ package com.example.playfeed
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -38,7 +36,7 @@ class FollowingFragment : Fragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_following, container, false)
 
-        // Initialize views
+
         swipeRefreshLayout = rootView.findViewById(R.id.swipeRefreshLayout)
         recyclerView = rootView.findViewById(R.id.articleRecyclerView)
         emptyState = rootView.findViewById(R.id.emptyState)
@@ -50,25 +48,25 @@ class FollowingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Setup RecyclerView
+
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         articleAdapter = ArticleAdapter(emptyList())
         recyclerView.adapter = articleAdapter
 
-        // Setup ViewModel
+
         rssViewModel = ViewModelProvider(this).get(RssViewModel::class.java)
 
-        // Setup swipe refresh
+
         swipeRefreshLayout.setOnRefreshListener {
             fetchFollowedGames()
         }
 
-        // Setup explore button
+
         exploreButton.setOnClickListener {
             startActivity(Intent(requireContext(), CategoriesActivity::class.java))
         }
 
-        // Initial load
+
         fetchFollowedGames()
     }
 
@@ -116,7 +114,7 @@ class FollowingFragment : Fragment() {
             allArticles.sortByDescending { it.getDate() ?: Date(0) }
             articleAdapter.updateArticles(allArticles)
 
-            // Show empty state if no articles found
+
             if (allArticles.isEmpty()) {
                 showEmptyState("No articles found for followed games")
             }

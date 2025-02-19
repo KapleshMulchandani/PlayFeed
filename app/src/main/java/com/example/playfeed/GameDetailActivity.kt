@@ -20,7 +20,7 @@ class GameDetailActivity : AppCompatActivity() {
     private lateinit var rssViewModel: RssViewModel
     private lateinit var followButton: MaterialButton
 
-    // Firebase components
+
     private val firebaseAuth = FirebaseAuth.getInstance()
     private val database = FirebaseDatabase.getInstance().reference
     private val currentUser = firebaseAuth.currentUser
@@ -30,31 +30,31 @@ class GameDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game_detail)
 
-        // Get game name and image from the intent
+
         val gameName = intent.getStringExtra("GAME_NAME") ?: "Game"
         val gameImageRes = intent.getIntExtra("GAME_IMAGE", R.drawable.ic_launcher_foreground)
 
-        // Set up UI
+
         findViewById<ImageView>(R.id.gameImage).setImageResource(gameImageRes)
         findViewById<TextView>(R.id.gameName).text = gameName
 
-        // Initialize Follow Button
+
         followButton = findViewById(R.id.followButton)
         setupFollowButton(gameName)
 
-        // Initialize RecyclerView
+
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         articleAdapter = ArticleAdapter(emptyList()) // Start with an empty list
         recyclerView.adapter = articleAdapter
 
-        // Initialize ViewModel
+
         rssViewModel = ViewModelProvider(this).get(RssViewModel::class.java)
 
-        // Fetch and display RSS news for the game
+
         fetchNews(gameName)
 
-        // Enable back button
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
@@ -94,7 +94,7 @@ class GameDetailActivity : AppCompatActivity() {
         rssViewModel.articles.observe(this, Observer { rssArticles ->
             rssArticles?.let {
                 allArticles.addAll(it)
-                // Sort articles by date (newest first)
+
                 allArticles.sortByDescending { article ->
                     when (article) {
                         is RssArticle -> article.getDate() ?: Date(0)
@@ -106,7 +106,7 @@ class GameDetailActivity : AppCompatActivity() {
         })
     }
 
-    // Rest of your existing methods remain unchanged:
+
     private fun getRssUrls(gameName: String): List<String> {
         return when (gameName.lowercase()) {
             "counter strike 2", "cs2" -> listOf(

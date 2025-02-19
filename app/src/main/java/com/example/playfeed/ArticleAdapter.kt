@@ -15,7 +15,7 @@ import java.util.*
 
 class ArticleAdapter(private var articles: List<Any>) : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {
 
-    // Update the list of articles and notify the adapter
+
     fun updateArticles(newArticles: List<Any>) {
         articles = newArticles
         notifyDataSetChanged()
@@ -44,10 +44,10 @@ class ArticleAdapter(private var articles: List<Any>) : RecyclerView.Adapter<Art
                 is RssArticle -> {
                     articleTitle.text = article.title
 
-                    // Debug: Log the article link
+
                     Log.d("ArticleLink", "Article link: ${article.link}")
 
-                    // Set image based on article link
+
                     when {
                         article.link.contains("vlr.gg") -> {
                             Picasso.get().load(R.drawable.vlr).into(articleImage)
@@ -59,7 +59,7 @@ class ArticleAdapter(private var articles: List<Any>) : RecyclerView.Adapter<Art
                             Picasso.get().load(R.drawable.steam).into(articleImage)
                         }
                         else -> {
-                            // Log the image URL
+
                             Log.d("ImageURL", "Image URL: ${article.imageUrl}")
                             if (article.imageUrl.isNullOrEmpty()) {
                                 Picasso.get().load(R.drawable.cantfindimage).into(articleImage)
@@ -69,13 +69,13 @@ class ArticleAdapter(private var articles: List<Any>) : RecyclerView.Adapter<Art
                         }
                     }
 
-                    // Format publication date and set it to the TextView
+
                     val outputFormat = SimpleDateFormat("dd/MM", Locale.getDefault())
                     val inputFormat = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH)
                     val date = try { inputFormat.parse(article.pubDate) } catch (e: Exception) { null }
                     articleDate.text = date?.let { outputFormat.format(it) } ?: ""
 
-                    // Set the source text dynamically (based on the article's source)
+
                     val source = when {
                         article.link.contains("dexerto", ignoreCase = true) -> "Dexerto"
                         article.link.contains("dotesports", ignoreCase = true) -> "Dot Esports"
@@ -87,21 +87,21 @@ class ArticleAdapter(private var articles: List<Any>) : RecyclerView.Adapter<Art
                     }
                     sourceText.text = source
 
-                    // Set click listener for the source text to open the article link
+
                     sourceText.setOnClickListener {
-                        // Open the article's URL (same as title and image)
+
                         val context = itemView.context
                         val openSourceIntent = Intent(Intent.ACTION_VIEW, Uri.parse(article.link))
                         context.startActivity(openSourceIntent)
                     }
                 }
                 else -> {
-                    // Optionally handle other types if needed
+
                     articleTitle.text = "Unknown article type"
                 }
             }
 
-            // Click listener to open article link (same behavior for image and title)
+
             val url = when (article) {
                 is RssArticle -> article.link
                 else -> ""
