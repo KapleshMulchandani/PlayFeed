@@ -34,6 +34,12 @@ class ProfileActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance().reference
 
 
+        if (auth.currentUser == null) {
+            navigateTo(LoginActivity::class.java)
+            finish() // Close ProfileActivity
+            return
+        }
+
         setupUserInfo()
         setupFollowedGames()
         setupButtonListeners()

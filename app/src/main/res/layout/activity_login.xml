@@ -107,6 +107,21 @@
                 android:clickable="true"
                 android:focusable="true"/>
 
+            <TextView
+                android:id="@+id/continueAsGuest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Continue As Guest"
+                android:textSize="14sp"
+                android:textColor="@color/secondary"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:padding="8dp"
+                android:clickable="true"
+                android:focusable="true"/>
+
+
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

@@ -1,15 +1,17 @@
 package com.example.playfeed
 
+
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-
 import com.google.firebase.auth.FirebaseAuth
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -18,6 +20,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var passwordEditText: EditText
     private lateinit var loginButton: Button
     private lateinit var signUpText: TextView
+    private lateinit var ContinueAsGuest: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +34,10 @@ class LoginActivity : AppCompatActivity() {
         passwordEditText = findViewById(R.id.passwordEditText)
         loginButton = findViewById(R.id.btnLogin)
         signUpText = findViewById(R.id.signUpText)
+
+        val ContinueAsGuest = findViewById<TextView>(R.id.continueAsGuest)
         val forgotPasswordText = findViewById<TextView>(R.id.forgotPasswordText)
+
 
         forgotPasswordText.setOnClickListener {
             showForgotPasswordDialog()
@@ -57,6 +63,12 @@ class LoginActivity : AppCompatActivity() {
         signUpText.setOnClickListener {
             startActivity(Intent(this, SignupActivity::class.java))
         }
+
+        ContinueAsGuest.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun loginUser(email: String, password: String) {
@@ -72,6 +84,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun navigateToMainActivity() {
+
         val intent = Intent(this, HomeActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
@@ -107,4 +120,5 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show()
             }
     }
+
 }

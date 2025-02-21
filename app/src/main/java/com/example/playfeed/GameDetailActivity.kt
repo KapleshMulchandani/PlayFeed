@@ -1,9 +1,12 @@
 package com.example.playfeed
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +15,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import java.util.Date
+
 
 class GameDetailActivity : AppCompatActivity() {
 
@@ -34,6 +38,8 @@ class GameDetailActivity : AppCompatActivity() {
         val gameName = intent.getStringExtra("GAME_NAME") ?: "Game"
         val gameImageRes = intent.getIntExtra("GAME_IMAGE", R.drawable.ic_launcher_foreground)
 
+        val user = firebaseAuth.currentUser
+
 
         findViewById<ImageView>(R.id.gameImage).setImageResource(gameImageRes)
         findViewById<TextView>(R.id.gameName).text = gameName
@@ -49,6 +55,7 @@ class GameDetailActivity : AppCompatActivity() {
         recyclerView.adapter = articleAdapter
 
 
+
         rssViewModel = ViewModelProvider(this).get(RssViewModel::class.java)
 
 
@@ -59,17 +66,25 @@ class GameDetailActivity : AppCompatActivity() {
     }
 
     private fun setupFollowButton(gameName: String) {
-        checkFollowStatus(gameName) { isFollowed ->
-            isFollowing = isFollowed
-            updateFollowButton()
+        followButton.setOnClickListener {
+            val user = firebaseAuth.currentUser
+            if (user == null) {
+                showLoginDialog() // Show dialog instead of instantly navigating
+            } else {
+                isFollowing = !isFollowing
+                toggleFollowStatus(gameName)
+                updateFollowButton()
+            }
         }
 
-        followButton.setOnClickListener {
-            isFollowing = !isFollowing
-            toggleFollowStatus(gameName)
-            updateFollowButton()
+        firebaseAuth.currentUser?.let {
+            checkFollowStatus(gameName) { isFollowed ->
+                isFollowing = isFollowed
+                updateFollowButton()
+            }
         }
     }
+
 
     private fun updateFollowButton() {
         if (isFollowing) {
@@ -208,5 +223,23 @@ class GameDetailActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun showLoginDialog() {
+        val alertDialog = AlertDialog.Builder(this)
+            .setTitle("Login Required")
+            .setMessage("You need to be signed in to follow games. Do you want to log in?")
+            .setPositiveButton("Login") { _, _ ->
+                val loginIntent = Intent(this, LoginActivity::class.java)
+                startActivity(loginIntent)
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+
+        // Change button text colors
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this, R.color.secondary)) // Change login color
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(this, R.color.error)) // Change cancel color
+    }
+
+
 
 }
