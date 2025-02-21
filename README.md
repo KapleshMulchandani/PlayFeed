@@ -32,7 +32,7 @@ What PlayFeed Does
 Here are some screenshots showcasing the app:
 
 - **Login Screen**  
-  <img src="https://github.com/KapleshMulchandani/PlayFeed/blob/e6cbce1f47b219cdfce12572d42a2d9ffed871b4/app/src/main/assets/login.jpeg" alt="Log In Page" height="600" width="300"/>
+  <img src="https://github.com/KapleshMulchandani/PlayFeed/blob/master/app/src/main/assets/login.jpg" alt="Log In Page" height="600" width="300"/>
 
 - **Sign Up Screen**  
   <img src="https://github.com/KapleshMulchandani/PlayFeed/blob/e6cbce1f47b219cdfce12572d42a2d9ffed871b4/app/src/main/assets/signup.jpeg" alt="Sign Up Page" height="600" width="300"/>
